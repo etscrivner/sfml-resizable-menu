@@ -3,8 +3,9 @@
 
 #include "Graphics/UI/SelectionMenu.hpp"
 
-
 const std::size_t ng::Graphics::UI::SelectionMenu::kFontSize = 30.0f;
+const float       ng::Graphics::UI::SelectionMenu::kItemXOffset = 60.0f;
+const float       ng::Graphics::UI::SelectionMenu::kItemSpacing = 20.0f;
 
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -43,7 +44,7 @@ void ng::Graphics::UI::SelectionMenu::addItem(const std::string& text)
 
 void ng::Graphics::UI::SelectionMenu::show()
 {
-  sf::Vector2f offset(ITEM_X_OFFSET, ITEM_SPACING);
+  sf::Vector2f offset(kItemXOffset, kItemSpacing);
   float largestItemWidth = 1;
 
   for (auto& item : items_) 
@@ -58,11 +59,12 @@ void ng::Graphics::UI::SelectionMenu::show()
     );
 
     /// Add spacing after each item
-    offset.y += ITEM_SPACING;
+    offset.y += kItemSpacing;
   }
 
+  // Add left and right padding of kItemXOffset
   background_.setSize(
-    sf::Vector2f(largestItemWidth + ITEM_X_OFFSET * 2, offset.y)
+    sf::Vector2f(largestItemWidth + kItemXOffset * 2, offset.y)
   );
 
   visible_ = true;
@@ -88,7 +90,7 @@ void ng::Graphics::UI::SelectionMenu::setCursorIndex(std::size_t index)
 {
   assert(index > 0 && index <= getItemCount());
 
-  sf::Vector2f offset(0.75 * ITEM_X_OFFSET, ITEM_SPACING);
+  sf::Vector2f offset(0.75 * kItemXOffset, kItemSpacing);
 
   // Offset for each item in the menu, accounting for item spacing
   for (std::size_t i = 1; i < index; i++)
@@ -96,7 +98,7 @@ void ng::Graphics::UI::SelectionMenu::setCursorIndex(std::size_t index)
     offset.y += items_[i].getLocalBounds().height;
 
     // Add spacing to additional items after the first
-    offset.y += ITEM_SPACING;
+    offset.y += kItemSpacing;
   }
 
   // First move to the top of the select item

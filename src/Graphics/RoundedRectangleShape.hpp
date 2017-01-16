@@ -20,8 +20,8 @@ namespace ng
       /// \param radius     Radius of the corners (larger is more rectangular).
       /// \param pointCount Number of points composing the rounded rectangle.
       RoundedRectangleShape(const sf::Vector2f& size,
-                            const float& radius,
-                            const std::size_t& pointCount);
+                            const float& radius = kDefaultRadius,
+                            const std::size_t& pointCount = kDefaultPointCount);
 
       /// \brief Set the size of the rounded rectangle.
       ///
@@ -70,9 +70,16 @@ namespace ng
       /// \return index-th point of the shape
       virtual sf::Vector2f getPoint(std::size_t index) const;
     private:
+      /// Member variables
+
       sf::Vector2f size_;       ///< Width and height of the rectangle.
       float        radius_;     ///< The radius of the corners.
       std::size_t  pointCount_; ///< Number of points composing rounded rectangle.
+
+      /// Static variables
+
+      static const float kDefaultRadius;           ///< Default radius for corners
+      static const std::size_t kDefaultPointCount; ///< Default point count
     };
   }
 }

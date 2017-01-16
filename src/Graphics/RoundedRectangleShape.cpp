@@ -4,6 +4,11 @@
 #include "Graphics/RoundedRectangleShape.hpp"
 #include "Math/Utils.hpp"
 
+const float ng::Graphics::RoundedRectangleShape::kDefaultRadius = 64.0f;
+const std::size_t ng::Graphics::RoundedRectangleShape::kDefaultPointCount = 50;
+
+///////////////////////////////////////////////////////////////////////////////
+
 ng::Graphics::RoundedRectangleShape::RoundedRectangleShape(
   const sf::Vector2f& size,
   const float& radius,
@@ -68,16 +73,19 @@ sf::Vector2f ng::Graphics::RoundedRectangleShape::getPoint(
 {
   static const float pi = 3.141592654f;
 
-  float angle = index * 2 * pi / getPointCount() - pi / 2;
+  double angle = index * 2 * pi / getPointCount() - pi / 2.0;
 
-  float x = (
-    pow(fabs(cos(angle)), 2.0/radius_) * size_.x *
+  double halfWidth = (size_.x / 2.0);
+  double halfHeight = (size_.y / 2.0);
+
+  double x = (
+    pow(fabs(cos(angle)), 2.0 / radius_) * halfWidth *
     ng::Math::Utils::sgn(cos(angle))
   );
-  float y = (
-    pow(fabs(sin(angle)), 2.0/radius_) * size_.y * 
+  double y = (
+    pow(fabs(sin(angle)), 2.0 / radius_) * halfHeight *
     ng::Math::Utils::sgn(sin(angle))
   );
 
-  return sf::Vector2f(x + size_.x, y + size_.y);
+  return sf::Vector2f(x + halfWidth, y + halfHeight);
 }

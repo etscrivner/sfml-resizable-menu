@@ -1,9 +1,9 @@
 #ifndef NG_GRAPHICS_UI_SELECTION_MENU_HPP_INCLUDED
 #define NG_GRAPHICS_UI_SELECTION_MENU_HPP_INCLUDED
 
-#include <string>
-
 #include <SFML/Graphics.hpp>
+
+#include "Graphics/RoundedRectangleShape.hpp"
 
 namespace ng
 {
@@ -48,9 +48,14 @@ namespace ng
         virtual void draw(sf::RenderTarget& target,
                           sf::RenderStates states) const;
       private:
+        /// Type declarations
+
+        /// Use to set background shape, can be square or rounded rectangle.
+        typedef ng::Graphics::RoundedRectangleShape BackgroundShapeT;
+
         /// Member variables
 
-        sf::RectangleShape    background_; ///< Background of menu.
+        BackgroundShapeT      background_; ///< Background for the menu.
         sf::Font              font_;       ///< Font for menu text.
         std::vector<sf::Text> items_;      ///< The menu items.
         sf::CircleShape       cursor_;     ///< Cursor for the menu.
@@ -58,9 +63,9 @@ namespace ng
 
         /// Constants
 
-        static const std::size_t kFontSize; ///< The size of the menu font.
-        static constexpr float ITEM_X_OFFSET = 60.0f;
-        static constexpr float ITEM_SPACING  = 20.0f;
+        static const std::size_t kFontSize;    ///< The size of the menu font.
+        static const float       kItemXOffset; ///< Default X offset of menu items.
+        static const float       kItemSpacing; ///< Default item spacing
       };
     }
   }
